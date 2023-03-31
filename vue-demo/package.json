@@ -8,9 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ant-design-vue": "latest",
+    "axios": "^0.27.2",
+    "echarts": "^5.3.3",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
