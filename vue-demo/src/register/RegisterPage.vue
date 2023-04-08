@@ -9,7 +9,7 @@
       :label-col="{ span: 8 }"
       :wrapper-col="{ span: 8 }"
       autocomplete="off"
-      @finish="onFinish"
+      @finish="handleSignup"
       @finishFailed="onFinishFailed"
     >
       <a-form-item
@@ -39,23 +39,27 @@
 </template>
 <script>
 import { defineComponent, reactive } from "vue";
+import { mapActions } from "vuex";
+import { default as user } from "../stores";
 export default defineComponent({
+  methods: {
+    ...mapActions(["register"]),
+    handleSignup(value) {
+      const { username, password } = value;
+      this.register({ username, password })
+        .then(() => {
+          console.log(value);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
   setup() {
-    const formState = reactive({
-      username: "",
-      password: "",
-      remember: true,
-    });
-    const onFinish = (values) => {
-      console.log("Success:", values);
-    };
-    const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-    };
+    const formState = reactive(user.state);
+
     return {
       formState,
-      onFinish,
-      onFinishFailed,
     };
   },
 });

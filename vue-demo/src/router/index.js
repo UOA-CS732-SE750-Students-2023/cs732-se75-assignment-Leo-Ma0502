@@ -30,10 +30,10 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   // redirect to login page if not logged in and trying to access a restricted page
+  const loggedIn = user.state.loggedin;
+  console.log("Log status: ", loggedIn)
   const publicPages = ['/login', '/register', '/#', '/welcome'];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = user.state.user.loggedin;
-
   if (authRequired && !loggedIn) {
     return router.push('/login')
   }

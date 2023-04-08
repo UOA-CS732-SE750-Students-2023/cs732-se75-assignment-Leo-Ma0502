@@ -1,17 +1,16 @@
 <script>
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   name: "logoutPage",
 
   mounted() {
-    this.logout();
+    this.exit_login();
   },
 
   methods: {
-    ...mapMutations("user", ["exit_login"]),
-    logout() {
-      this.exit_login();
-      window.alert("Succefully logged out");
+    ...mapActions(["logout"]),
+    exit_login() {
+      this.logout();
     },
   },
 };

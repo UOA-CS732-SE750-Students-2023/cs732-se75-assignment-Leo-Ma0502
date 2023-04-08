@@ -41,8 +41,12 @@
                 Data Dashboard
               </span>
             </template>
-            <a-menu-item key="5">Chart1</a-menu-item>
-            <a-menu-item key="6">Chart2</a-menu-item>
+            <router-link to="/chart1"
+              ><a-menu-item key="5">Chart1</a-menu-item></router-link
+            >
+            <router-link to="/chart2"
+              ><a-menu-item key="6">Chart2</a-menu-item></router-link
+            >
           </a-sub-menu>
         </a-menu>
       </a-layout-sider>

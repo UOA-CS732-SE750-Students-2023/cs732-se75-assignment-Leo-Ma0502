@@ -23,18 +23,18 @@ export default {
 
   // request data from backend (asyn)
   async created() {
-    const res = await axios.get("http://localhost:3000/data2");
+    const res = await axios.get("http://localhost:3000/api/data2");
     this.sales = res.data;
   },
 
   methods: {
     // undate data
     async updateSales() {
-      const res = await axios.post("http://localhost:3000/data2", {
+      const res = await axios.post("http://localhost:3000/api/data2", {
         goodsname: "dog",
         number: 10,
       });
-      this.sales.push(res.data);
+      window.location.reload();
     },
   },
 };

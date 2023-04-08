@@ -5,8 +5,7 @@
     :label-col="{ span: 8 }"
     :wrapper-col="{ span: 16 }"
     autocomplete="off"
-    @finish="onFinish"
-    @finishFailed="onFinishFailed"
+    @finish="handleLogin"
   >
     <a-form-item
       label="Username"
@@ -35,23 +34,41 @@
 </template>
 <script>
 import { defineComponent, reactive } from "vue";
+import { mapActions } from "vuex";
+import { default as user } from "./stores";
+
+// const formState = reactive(user.state);
+
 export default defineComponent({
+  methods: {
+    ...mapActions(["login"]),
+    handleLogin(value) {
+      const { username, password } = value;
+      this.login({ username, password })
+        .then(() => {
+          console.log(value);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
   setup() {
-    const formState = reactive({
-      username: "",
-      password: "",
-      remember: true,
-    });
-    const onFinish = (values) => {
-      console.log("Success:", values);
+    const formState = reactive(user.state);
+
+    const handleLogout = () => {
+      logout()
+        .then(() => {
+          console.log("Logout successful");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
-    const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
-    };
+
     return {
       formState,
-      onFinish,
-      onFinishFailed,
+      handleLogout,
     };
   },
 });
