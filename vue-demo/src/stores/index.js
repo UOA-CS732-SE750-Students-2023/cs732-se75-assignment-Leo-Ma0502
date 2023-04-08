@@ -1,32 +1,42 @@
 import { createStore } from 'vuex'
 import axios from "axios";
-import localStoragePlugin from './vue-persist';
 import router from '../router'
+import { reactive } from 'vue';
 
-const storedData = localStorage.getItem('store');
-const user_in_server = await axios.get("http://localhost:3000/api/user");
-const user_names = []
-for (let i = 0; i < user_in_server.data.length; i++) {
-    user_names.push(user_in_server.data[i].username)
+let storedData = window.localStorage.getItem('user');
+console.log('stored data: ', JSON.parse(storedData));
+var user_in_server = reactive([]);
+var user_names = reactive([]);
+
+async function user_load() {
+    user_in_server = await axios.get("http://localhost:3000/api/user");
+    user_names = []
+    for (let i = 0; i < user_in_server.data.length; i++) {
+        user_names.push(user_in_server.data[i].username)
+    }
 }
 
+
 export default createStore({
-    state: storedData ? JSON.parse(storedData) : {
+    state: JSON.parse(storedData) ? reactive(JSON.parse(storedData)) : reactive({
         username: '',
         password: '',
         loggedin: false,
         remember: true
-    },
+    }),
     actions: {
-        login({ commit }, { username, password }) {
+        login({ commit }, { username, password, remember }) {
+            user_load();
+            // getUser();
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     if (user_names.includes(username)) {
                         if (password == user_in_server.data[user_names.indexOf(username)].password) {
-                            commit('setUser', { username })
+                            commit('setUser', { username, password, remember })
                             commit('setLoggedIn', true)
                             resolve()
-                            localStorage.setItem('store', JSON.stringify(this.state))
+                            window.localStorage.setItem('user', JSON.stringify(this.state))
+                            console.log("stored:", window.localStorage.getItem('user'))
                             router.push('./welcome')
                         }
                         else {
@@ -41,6 +51,7 @@ export default createStore({
             })
         },
         register({ commit }, { username, password }) {
+            user_load();
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     if (user_names.includes(username)) {
@@ -52,8 +63,9 @@ export default createStore({
                                 "username": username,
                                 "password": password,
                             })
+                            router.push('./login');
                             alert("Sign up successfully")
-                            router.push('./login')
+
                         } catch (error) {
                             alert(error)
                         }
@@ -66,18 +78,28 @@ export default createStore({
         logout({ commit }) {
             setTimeout(() => {
                 commit('setLoggedIn', false)
+                this.state.remember ? "" : commit('setUser', { username: "", password: "" })
+                window.localStorage.setItem("user", JSON.stringify(this.state))
+                storedData = window.localStorage.getItem('user');
             }, 1000)
+            router.push('./login');
             alert("Succefully logged out");
         }
 
     },
     mutations: {
-        setUser(state, { username }) {
+        setUser(state, { username, password, remember }) {
             state.username = username
+            state.password = password
+            state.remember = remember
         },
         setLoggedIn(state, isLoggedIn) {
             state.loggedin = isLoggedIn
-        }
+        },
     },
-    plugins: [localStoragePlugin],
+    getters: {
+        getUser(state) {
+            return state
+        }
+    }
 })

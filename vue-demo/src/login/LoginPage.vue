@@ -52,11 +52,10 @@ export default defineComponent({
   methods: {
     ...mapActions(["login"]),
     handleLogin(value) {
-      const { username, password } = value;
-      this.login({ username, password })
+      const { username, password, remember } = value;
+      this.login({ username, password, remember })
         .then(() => {
-          console.log(this.$store.state);
-          console.log(value);
+          console.log("state after logged in: ", user.state);
         })
         .catch((error) => {
           console.error(error);
@@ -65,7 +64,6 @@ export default defineComponent({
   },
   setup() {
     const formState = reactive(user.state);
-
     return {
       formState,
     };
