@@ -18,7 +18,7 @@ const router = createRouter({
     { path: "/chart1", component: ChartView1 },
     { path: "/chart2", component: ChartView2 },
 
-    { path: '/#', component: FrameWork },
+    { path: '', redirect: { path: "/welcome" }, component: FrameWork },
     { path: '/profile', component: ProfilePage },
     { path: '/logout', component: logoutPage },
     { path: '/login', component: LoginPage },
