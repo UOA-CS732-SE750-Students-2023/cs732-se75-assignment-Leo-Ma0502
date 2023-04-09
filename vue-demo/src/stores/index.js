@@ -3,11 +3,13 @@ import axios from "axios";
 import router from '../router'
 import { reactive } from 'vue';
 
+// read user state from local storage
 let storedData = window.localStorage.getItem('user');
 console.log('stored data: ', JSON.parse(storedData));
 var user_in_server = reactive([]);
 var user_names = reactive([]);
 
+// load username, password from server
 async function user_load() {
     user_in_server = await axios.get("http://localhost:3000/api/user");
     user_names = []
@@ -27,7 +29,6 @@ export default createStore({
     actions: {
         login({ commit }, { username, password, remember }) {
             user_load();
-            // getUser();
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     if (user_names.includes(username)) {

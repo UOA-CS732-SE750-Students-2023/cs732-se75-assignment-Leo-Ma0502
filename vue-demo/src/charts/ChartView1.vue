@@ -1,6 +1,7 @@
 <template>
   <h1>Chart demo 1</h1>
   <a-button type="primary" @Click="showDrawer">Update</a-button>
+  <!-- a drawer shows for inputing inforamtion for update if user clicks update button -->
   <a-drawer
     :width="500"
     title="Update item"
@@ -12,6 +13,7 @@
       <a-button style="margin-right: 8px" @click="onClose">Cancel</a-button>
       <a-button type="primary" @click="updateSales">Submit</a-button>
     </template>
+    <!-- update form begins -->
     <a-form
       :model="toUpdate"
       name="basic"
@@ -37,6 +39,7 @@
         <a-input v-model:value="toUpdate.number" />
       </a-form-item>
     </a-form>
+    <!-- update form ends -->
   </a-drawer>
   <!-- call component and bind data with props -->
   <EchartsDemo :data="sales" />

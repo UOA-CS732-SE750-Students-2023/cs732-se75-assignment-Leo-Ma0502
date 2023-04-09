@@ -1,3 +1,8 @@
+This is a demo made with Vue and ant-design-vue of sales data visualisation dashboard.
+
+Structure:
+FrameWork serves as the framework, and content of the page depends on the router direction.
+
 Clone the repository:
 git clone https://github.com/UOA-CS732-SE750-Students-2023/cs732-se75-assignment-Leo-Ma0502.git
 cd UOA-CS732-SE750-Students-2023/cs732-se75-assignment-Leo-Ma0502

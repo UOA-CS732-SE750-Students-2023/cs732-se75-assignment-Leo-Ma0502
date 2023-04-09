@@ -1,5 +1,6 @@
 <template>
   <a-layout :style="{ height: '95vh', width: '100vw' }">
+    <!-- header begins-->
     <a-layout-header class="header">
       <a-menu
         v-model:selectedKeys="selectedKeys1"
@@ -12,7 +13,11 @@
         >
       </a-menu>
     </a-layout-header>
+    <!-- header ends -->
+
+    <!-- layout begins -->
     <a-layout>
+      <!-- sider bar begins -->
       <a-layout-sider width="200" style="background: #fff">
         <a-menu
           v-model:selectedKeys="selectedKeys2"
@@ -27,9 +32,11 @@
                 USER
               </span>
             </template>
+            <!-- see profile -->
             <router-link to="/profile"
               ><a-menu-item key="1">Profile</a-menu-item></router-link
             >
+            <!-- logout -->
             <router-link to="/logout"
               ><a-menu-item key="2">Logout</a-menu-item></router-link
             >
@@ -41,15 +48,20 @@
                 Data Dashboard
               </span>
             </template>
+            <!-- see the first chart -->
             <router-link to="/chart1"
               ><a-menu-item key="5">Chart1</a-menu-item></router-link
             >
+            <!-- see another chart -->
             <router-link to="/chart2"
               ><a-menu-item key="6">Chart2</a-menu-item></router-link
             >
           </a-sub-menu>
         </a-menu>
       </a-layout-sider>
+      <!-- sider bar ends -->
+
+      <!-- content depending on router begins -->
       <a-layout style="padding: 0 24px 24px">
         <a-layout-content
           :style="{
@@ -62,7 +74,9 @@
           <router-view />
         </a-layout-content>
       </a-layout>
+      <!-- content depending on router ends -->
     </a-layout>
+    <!-- layout ends -->
   </a-layout>
 </template>
 <script>

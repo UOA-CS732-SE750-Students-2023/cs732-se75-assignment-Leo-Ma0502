@@ -3,6 +3,7 @@
     <h style="font-weight: bolder">Log in</h>
     <br />
     <br />
+    <!-- form for login begins -->
     <a-form
       :model="formState"
       name="basic"
@@ -38,9 +39,11 @@
         <a-button type="primary" html-type="submit">Submit</a-button>
         <br />
         <br />
+        <!-- go to sign up -->
         <router-link to="/register">New here? Sign Up</router-link>
       </a-form-item>
     </a-form>
+    <!-- form for login ends -->
   </div>
 </template>
 <script>
@@ -50,6 +53,7 @@ import { default as user } from "../stores";
 
 export default defineComponent({
   methods: {
+    // map and call login function from store
     ...mapActions(["login"]),
     handleLogin(value) {
       const { username, password, remember } = value;

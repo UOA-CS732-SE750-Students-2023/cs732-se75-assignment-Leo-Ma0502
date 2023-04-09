@@ -3,6 +3,7 @@
     <h style="font-weight: bolder">Sign up</h>
     <br />
     <br />
+    <!-- form for register begins -->
     <a-form
       :model="formState"
       name="basic"
@@ -35,6 +36,7 @@
         <router-link to="/login">Go to log in</router-link>
       </a-form-item>
     </a-form>
+    <!-- form for register ends -->
   </div>
 </template>
 <script>
@@ -43,6 +45,7 @@ import { mapActions } from "vuex";
 import { default as user } from "../stores";
 export default defineComponent({
   methods: {
+    // map and call register function from store
     ...mapActions(["register"]),
     handleSignup(value) {
       const { username, password } = value;
